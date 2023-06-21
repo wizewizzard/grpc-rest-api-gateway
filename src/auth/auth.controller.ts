@@ -6,27 +6,22 @@ import { AuthServiceClient, RegisterResponse, RegisterRequest, AUTH_SERVICE_NAME
 
 @Controller('auth')
 export class AuthController implements OnModuleInit {
-  private svc: AuthServiceClient;
+    private svc: AuthServiceClient;
 
-  @Inject(AUTH_SERVICE_NAME)
-  private readonly client: ClientGrpc;
+    @Inject(AUTH_SERVICE_NAME)
+    private readonly client: ClientGrpc;
 
-  public onModuleInit(): void {
-    this.svc = this.client.getService<AuthServiceClient>(AUTH_SERVICE_NAME);
-  }
+    public onModuleInit(): void {
+        this.svc = this.client.getService<AuthServiceClient>(AUTH_SERVICE_NAME);
+    }
 
-  @Post('register')
-  private async register(@Body() body: RegisterRequest): Promise<Observable<RegisterResponse>> {
-    return this.svc.register(body);
-  }
+    @Post('register')
+    private async register(@Body() body: RegisterRequest): Promise<Observable<RegisterResponse>> {
+        return this.svc.register(body);
+    }
 
-  @Put('login')
-  private async login(@Body() body: LoginRequest): Promise<Observable<LoginResponse>> {
-    return this.svc.login(body);
-  }
-
-  @Get('validate')
-  private async validate(@Query('token') token: string) {
-    return this.svc.validate({token});
-  }
+    @Put('login')
+    private async login(@Body() body: LoginRequest): Promise<Observable<LoginResponse>> {
+        return this.svc.login(body);
+    }
 }
